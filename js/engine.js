@@ -13,15 +13,17 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
-
-var Engine = (function(global) {
+//window.addEventListener('DOMContentLoaded', Engine(), false);
+//var globalFunction =
+    var globalFunc= function (global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
-    var doc = global.document,
-        win = global.window,
-        canvas = doc.createElement('canvas'),
+    console.log('1. to execute: Test b');
+    var win = global.window;
+    var doc = global.document;
+    var canvas = document.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
 
@@ -39,6 +41,7 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
+        console.log('Test main f');
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
@@ -64,6 +67,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
+        console.log('Test init');
         reset();
         lastTime = Date.now();
         main();
@@ -174,11 +178,19 @@ var Engine = (function(global) {
         'images/enemy-bug.png',
         'images/char-boy.png'
     ]);
-    Resources.onReady(init);
 
+    console.log('Before init');
+    Resources.onReady(init);
+    console.log('After init');
+    alert('After init');
     /* Assign the canvas' context object to the global variable (the window
      * object when run in a browser) so that developer's can use it more easily
      * from within their app.js files.
      */
     global.ctx = ctx;
-})(this);
+};
+//var Engine =
+    (globalFunc)(this);    ///self invoking function expression
+console.log('Afterr call to globalFunc.: Test a');
+
+
