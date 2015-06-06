@@ -15,6 +15,7 @@
  */
 //window.addEventListener('DOMContentLoaded', Engine(), false);
 //var globalFunction =
+
     var globalFunc= function (global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -41,7 +42,7 @@
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
-        console.log('Test main f');
+        //console.log('Test main f');
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
@@ -84,7 +85,7 @@
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function  and loops through all of the
@@ -97,6 +98,16 @@
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
+        });
+        player.update();
+    }
+    function checkCollisions() {
+        allEnemies.forEach(function(enemy) {
+            var xDist=Math.abs(player.x-enemy.x);
+            var yDist=Math.abs(player.y-enemy.y);
+            if((xDist<42)&&(yDist<42)){
+                player.y=(numCols*83);
+            }
         });
         player.update();
     }
@@ -119,8 +130,6 @@
                 'images/grass-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],
-            numRows = 6,
-            numCols = 5,
             row, col;
 
         /* Loop through the number of rows and columns we've defined above
@@ -182,7 +191,7 @@
     console.log('Before init');
     Resources.onReady(init);
     console.log('After init');
-    alert('After init');
+    //alert('After init');
     /* Assign the canvas' context object to the global variable (the window
      * object when run in a browser) so that developer's can use it more easily
      * from within their app.js files.
